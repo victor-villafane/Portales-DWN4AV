@@ -36,6 +36,6 @@ class MoviesController extends Controller
         $movie->synopsis = $input['synopsis'];
         $movie->save();
 
-        return redirect()->route('movies.index')->with('feedback.message', "La pelicula se publico correctamente");
+        return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>".e( $input["title"] )."</b> se publico correctamente");
     }
 }

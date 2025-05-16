@@ -34,7 +34,7 @@
 </nav>
    <div class="container-fluid">
         @if( session()->has('feedback.message') )
-            <div class="alert alert-success" >{{ session()->get('feedback.message') }}</div>
+            <div class="alert alert-success" >{!! session()->get('feedback.message') !!}</div>
         @endif
     {{ $slot }}
    </div>
