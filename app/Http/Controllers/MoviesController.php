@@ -49,4 +49,19 @@ class MoviesController extends Controller
 
         return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>".e( $input["title"] )."</b> se publico correctamente");
     }
+
+    public function destroy($id){
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+
+        return redirect()
+                ->route('movies.index')
+                ->with('feedback.message', "La pelicula <b>".e( $movie->title )."</b> se elimino correctamente");
+    }
+
+    public function delete($id){
+        return view('movies.delete', [
+            'movie' => Movie::findOrFail($id)
+        ]);
+    }
 }

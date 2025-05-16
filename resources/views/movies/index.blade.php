@@ -29,6 +29,12 @@
                     <td>{{$movie->release_date}}</td>
                     <td>
                         <a href="{{ route('movies.view', ['id' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>
+                        {{-- <form action="{{ route('movies.destroy', ['id' => $movie->movie_id]) }}" method="post" >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"  >Eliminar</button>
+                        </form> --}}
+                        <a href="{{ route('movies.delete', ['id' => $movie->movie_id]) }}" class="btn btn-danger" >Eliminar</a>
                     </td>
                 </tr>
             @endforeach
