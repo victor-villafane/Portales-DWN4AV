@@ -19,6 +19,12 @@ Route::get('/peliculas/{id}/eliminar', [\App\http\Controllers\MoviesController::
         ->whereNumber('id');
 Route::delete('/peliculas/{id}/eliminar', [\App\http\Controllers\MoviesController::class, 'destroy'])->name('movies.destroy')
         ->whereNumber('id');
+
+Route::get('/peliculas/editar/{id}', [\App\http\Controllers\MoviesController::class, 'edit'])->name('movies.edit')
+        ->whereNumber('id');
+
+Route::put('/peliculas/editar/{id}', [ \App\http\Controllers\MoviesController::class, 'update' ])-> name('movies.update')
+        ->whereNumber('id');
 // Route::get('/quienes-somos', function () {
 //     return view('about');
 // });
