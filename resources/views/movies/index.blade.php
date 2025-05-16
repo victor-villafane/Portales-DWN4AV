@@ -5,10 +5,11 @@
 <x-layout>
     <x-slot:title>home: </x-slot:title>
     <h1>Peliculas</h1>
-
-    <p class="mb-3" >
-        <a href="{{ route('movies.create') }}" class="btn btn-primary" >Crear pelicula</a>
-    </p>
+    @auth
+        <p class="mb-3" >
+            <a href="{{ route('movies.create') }}" class="btn btn-primary" >Crear pelicula</a>
+        </p>
+    @endauth
 
     <table class="table table-bordered table-striped" >
         <thead>
@@ -29,8 +30,10 @@
                     <td>{{$movie->release_date}}</td>
                     <td>
                         <a href="{{ route('movies.view', ['id' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>
-                        <a href="{{ route('movies.edit', ['id' => $movie->movie_id]) }}" class="btn btn-secondary" >Editar</a>
-                        <a href="{{ route('movies.delete', ['id' => $movie->movie_id]) }}" class="btn btn-danger" >Eliminar</a>
+                        @auth
+                            <a href="{{ route('movies.edit', ['id' => $movie->movie_id]) }}" class="btn btn-secondary" >Editar</a>
+                            <a href="{{ route('movies.delete', ['id' => $movie->movie_id]) }}" class="btn btn-danger" >Eliminar</a>
+                        @endauth
                     </td>
                 </tr>
             @endforeach
