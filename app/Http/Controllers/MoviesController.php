@@ -14,4 +14,11 @@ class MoviesController extends Controller
         // dd($allMovies);
         return view('movies.index', ['movies' => $allMovies] );
     }
+
+    public function view($id){
+        // $movie = Movie::find($id);
+        return view('movies.view', [
+            'movie' => Movie::findOrFail($id)
+        ]);
+    }
 }
