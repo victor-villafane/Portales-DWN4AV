@@ -12,6 +12,8 @@ Route::get('/peliculas/listado', [\App\http\Controllers\MoviesController::class,
 Route::get('/peliculas/{id}', [\App\http\Controllers\MoviesController::class, 'view'])
         ->name('movies.view')
         ->whereNumber('id');
+Route::get('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'create'])->name('movies.create');
+Route::post('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'store'])->name('movies.store');
 // Route::get('/quienes-somos', function () {
 //     return view('about');
 // });

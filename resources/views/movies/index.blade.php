@@ -6,6 +6,10 @@
     <x-slot:title>home: </x-slot:title>
     <h1>Peliculas</h1>
 
+    <p class="mb-3" >
+        <a href="{{ route('movies.create') }}" class="btn btn-primary" >Crear pelicula</a>
+    </p>
+
     <table class="table table-bordered table-striped" >
         <thead>
             <tr>

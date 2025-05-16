@@ -21,4 +21,21 @@ class MoviesController extends Controller
             'movie' => Movie::findOrFail($id)
         ]);
     }
+
+    public function create(){
+        return view('movies.create');
+    }
+
+    public function store(Request $request){
+        $input = $request->all();
+
+        $movie = new Movie();
+        $movie->title = $input['title'];
+        $movie->price = $input['price'];
+        $movie->release_date = $input['release_date'];
+        $movie->synopsis = $input['synopsis'];
+        $movie->save();
+
+        return redirect()->route('movies.index');
+    }
 }
