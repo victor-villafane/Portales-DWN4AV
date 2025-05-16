@@ -24,6 +24,20 @@
         <li class="nav-item">
             <x-nav-link route="about">About</x-nav-link>
         </li>
+        @if( auth()->check() )
+        <li class="nav-item">
+            <form action="{{ url('/cerrar-sesion') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-link nav-link" >
+                    {{ auth()->user()->email }} (Cerrar sesion)
+                </button>
+            </form>
+        </li>
+        @else
+        <li class="nav-item">
+            <x-nav-link route="auth.login">Iniciar sesion</x-nav-link>
+        </li>
+        @endif
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

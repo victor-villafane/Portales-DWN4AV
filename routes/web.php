@@ -25,6 +25,11 @@ Route::get('/peliculas/editar/{id}', [\App\http\Controllers\MoviesController::cl
 
 Route::put('/peliculas/editar/{id}', [ \App\http\Controllers\MoviesController::class, 'update' ])-> name('movies.update')
         ->whereNumber('id');
+
+Route::get('/iniciar-sesion', [\App\http\Controllers\AuthController::class, 'login'])->name('auth.login');
+Route::post('/iniciar-sesion', [\App\http\Controllers\AuthController::class, 'authenticate'])->name('auth.authenticate');
+
+Route::post('/cerrar-sesion', [\App\http\Controllers\AuthController::class, 'logout'])->name('auth.logout');
 // Route::get('/quienes-somos', function () {
 //     return view('about');
 // });
