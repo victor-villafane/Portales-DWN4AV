@@ -29,12 +29,14 @@ class MoviesController extends Controller
     public function store(Request $request){
         $input = $request->all();
 
-        $movie = new Movie();
-        $movie->title = $input['title'];
-        $movie->price = $input['price'];
-        $movie->release_date = $input['release_date'];
-        $movie->synopsis = $input['synopsis'];
-        $movie->save();
+        // $movie = new Movie();
+        // $movie->title = $input['title'];
+        // $movie->price = $input['price'];
+        // $movie->release_date = $input['release_date'];
+        // $movie->synopsis = $input['synopsis'];
+        // $movie->save();
+        Movie::create($input);
+
 
         return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>".e( $input["title"] )."</b> se publico correctamente");
     }
