@@ -17,7 +17,8 @@ class Movie extends Model
         'title',
         'price',
         'release_date',
-        'synopsis'
+        'synopsis',
+        'rating_fk'
     ];
 
     public function rating(): BelongsTo

@@ -53,6 +53,14 @@
             </label>
             <input type="file" class="form-control" id="cover" name="cover">
         </div>
+        <div class="mb-3" >
+            <label for="rating_fk" class="form-label">Clasificacion</label>
+            <select class="form-select" id="rating_fk" name="rating_fk">
+                @foreach ($ratings as $rating)
+                    <option value="{{ $rating->rating_id }}">{{ $rating->name }} ( {{ $rating->abbreviation }} )</option>
+                @endforeach
+            </select>
+        </div>
         <div class="mb-3">
             <label for="cover_description" class="form-label">
                 Descripcion de la portada <span class="small" >(Opcional)</span>

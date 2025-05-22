@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Movie;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -24,11 +25,15 @@ class MoviesController extends Controller
     }
 
     public function create(){
-        return view('movies.create');
+        return view('movies.create', [
+            'ratings' => Rating::all()
+        ]);
     }
 
     public function store(Request $request){
         $input = $request->all();
+
+        // dd($input);
 
         $request->validate([
             'title' => 'required|max:255|min:3',
