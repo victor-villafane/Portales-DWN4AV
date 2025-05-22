@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('movies', function (Blueprint $table) {
-            //
+            $table->unsignedTinyInteger('rating_fk');
+            $table->foreign('rating_fk')->references('rating_id')->on('ratings');
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('movies', function (Blueprint $table) {
-            //
+            $table->dropColumn('rating_fk');
         });
     }
 };

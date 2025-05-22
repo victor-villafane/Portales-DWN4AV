@@ -16,6 +16,7 @@ class MovieSeeder extends Seeder
         DB::table('movies')->insert([
                 [
                     'movie_id' => 5,
+                    'rating_fk' => 2,
                     'title' => 'The Shawshank Redemption',
                     'price' => 10,
                     'release_date' => '1994-09-23',
@@ -26,6 +27,7 @@ class MovieSeeder extends Seeder
                 [
                     'movie_id' => 6,
                     'title' => 'The Godfather',
+                    'rating_fk' => 3,
                     'price' => 12,
                     'release_date' => '1972-03-24',
                     'synopsis' => 'An organized crime dynasty',
@@ -36,6 +38,7 @@ class MovieSeeder extends Seeder
                     'movie_id' => 7,
                     'title' => 'The Dark Knight',
                     'price' => 15,
+                    'rating_fk' => 4,
                     'release_date' => '2008-07-18',
                     'synopsis' => 'When the menace known as the Joker emerges from his mysterious past',
                     'created_at' => now(),

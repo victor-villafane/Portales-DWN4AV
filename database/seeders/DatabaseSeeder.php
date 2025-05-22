@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call( [
-                MovieSeeder::class,
                 UserSeeder::class,
-                RatingSeeder::class
+                RatingSeeder::class,
+                MovieSeeder::class
             ] );
     }
 }
