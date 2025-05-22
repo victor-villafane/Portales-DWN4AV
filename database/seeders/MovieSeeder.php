@@ -45,5 +45,32 @@ class MovieSeeder extends Seeder
                     'updated_at' => now(),
                 ]
             ]);
+
+            DB::table('movies_have_genres')->insert([
+                [
+                    'movie_fk' => 5,
+                    'genre_fk' => 1
+                ],
+                [
+                    'movie_fk' => 5,
+                    'genre_fk' => 2
+                ],
+                [
+                    'movie_fk' => 6,
+                    'genre_fk' => 3
+                ],
+                [
+                    'movie_fk' => 6,
+                    'genre_fk' => 4
+                ],
+                [
+                    'movie_fk' => 7,
+                    'genre_fk' => 5
+                ],
+                [
+                    'movie_fk' => 7,
+                    'genre_fk' => 6
+                ]
+                ]);
     }
 }
