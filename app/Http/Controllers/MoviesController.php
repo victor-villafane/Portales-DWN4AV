@@ -73,7 +73,8 @@ class MoviesController extends Controller
 
     public function edit($id){
         return view('movies.edit', [
-            'movie' => Movie::findOrFail($id)
+            'movie' => Movie::findOrFail($id),
+            'ratings' => Rating::all()
         ]);
     }
 

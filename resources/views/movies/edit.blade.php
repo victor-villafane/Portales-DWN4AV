@@ -1,3 +1,9 @@
+<?php
+
+    // dd($movie);
+    // dd($ratings);
+?>
+
 <x-layout>
     <x-slot:title>Editar pelicula</x-slot:title>
     <h1 class="mb-3" >Editar pelicula: {{ $movie->title }}</h1>
@@ -47,6 +53,18 @@
         <div class="mb-3">
             <label for="synopsis" class="form-label">Sinopsis</label>
             <textarea class="form-control" id="synopsis" name="synopsis" rows="3">{{ old('synopsis', $movie->synopsis) }}</textarea>
+        </div>
+        <div class="mb-3" >
+            <label for="rating_fk" class="form-label">Clasificacion</label>
+            <select class="form-select" id="rating_fk" name="rating_fk">
+                @foreach ($ratings as $rating)
+                    <option
+                        value="{{ $rating->rating_id }}"
+                        @selected( $rating->rating_id == old('rating_fk', $movie->rating_fk) )>
+                        {{ $rating->name }} ( {{ $rating->abbreviation }} )
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="mb-3">
             <label for="cover" class="form-label">
