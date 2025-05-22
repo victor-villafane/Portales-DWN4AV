@@ -18,6 +18,7 @@
                 <th>Titulo</th>
                 <th>Precio</th>
                 <th>Fecha de estreno</th>
+                <th>Clasificacion</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                     <td>{{$movie->title}}</td>
                     <td>{{$movie->price}}</td>
                     <td>{{$movie->release_date}}</td>
+                    <td>{{$movie->rating->name}}</td>
                     <td>
                         <a href="{{ route('movies.view', ['id' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>
                         @auth
