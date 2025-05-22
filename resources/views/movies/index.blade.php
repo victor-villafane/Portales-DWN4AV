@@ -18,6 +18,7 @@
                 <th>Titulo</th>
                 <th>Precio</th>
                 <th>Fecha de estreno</th>
+                <th>Generos</th>
                 <th>Clasificacion</th>
                 <th>Acciones</th>
             </tr>
@@ -29,6 +30,11 @@
                     <td>{{$movie->title}}</td>
                     <td>{{$movie->price}}</td>
                     <td>{{$movie->release_date}}</td>
+                    <td>
+                        @foreach( $movie->genres as $genre )
+                            <span class="badge bg-secondary" >{{ $genre->name }}</span>
+                        @endforeach
+                    </td>
                     <td>{{$movie->rating->name}}</td>
                     <td>
                         <a href="{{ route('movies.view', ['id' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>

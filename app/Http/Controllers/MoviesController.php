@@ -12,7 +12,7 @@ class MoviesController extends Controller
     public function index(){
         // return view('movies');
         // $allMovies = Movie::all();
-        $allMovies = Movie::with('rating')->get();
+        $allMovies = Movie::with('rating', 'genres')->get();
         // dd($allMovies);
         return view('movies.index', ['movies' => $allMovies] );
     }
