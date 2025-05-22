@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call( [
                 MovieSeeder::class,
-                UserSeeder::class
+                UserSeeder::class,
+                RatingSeeder::class
             ] );
     }
 }
