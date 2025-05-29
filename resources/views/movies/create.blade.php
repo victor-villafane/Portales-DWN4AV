@@ -47,6 +47,20 @@
             <label for="synopsis" class="form-label">Sinopsis</label>
             <textarea class="form-control" id="synopsis" name="synopsis" rows="3"></textarea>
         </div>
+        <fieldset class="mb-3" >
+            <legend>Generos</legend>
+            @foreach ($genres as $genre )
+                <label class="me-3">
+                    <input
+                        type="checkbox"
+                        name="genre_id[]"
+                        value="{{ $genre->genre_id }}"
+                        @checked( in_array( $genre->genre_id, old( 'genre_id', [] ) ) )
+                        >
+                    {{ $genre->name }}
+                </label>
+            @endforeach
+        </fieldset>
         <div class="mb-3">
             <label for="cover" class="form-label">
                 Portada <span class="small" >(Opcional)</span>

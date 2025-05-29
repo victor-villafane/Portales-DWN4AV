@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class MoviesController extends Controller
 
     public function create(){
         return view('movies.create', [
+            'genres' => Genre::orderBy('name')->get(),
             'ratings' => Rating::all()
         ]);
     }
@@ -50,8 +52,8 @@ class MoviesController extends Controller
             'release_date.date' => "El campo fecha de lanzamiento no es una fecha valida"
         ]);
 
-        Movie::create($input);
-
+        $movie = Movie::create($input);
+        $movie->genres()->attach($input['genre_id']);
 
         return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>".e( $input["title"] )."</b> se publico correctamente");
     }
