@@ -60,6 +60,8 @@ class MoviesController extends Controller
 
     public function destroy($id){
         $movie = Movie::findOrFail($id);
+
+        $movie->genres()->detach();
         $movie->delete();
 
         return redirect()
