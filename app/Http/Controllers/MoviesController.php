@@ -35,6 +35,10 @@ class MoviesController extends Controller
     public function store(Request $request){
         $input = $request->all();
 
+        if( $request->hasFile('cover') ){
+            $input['cover'] = $request->file('cover')->store('covers', 'public');
+        }
+
         // dd($input);
 
         $request->validate([

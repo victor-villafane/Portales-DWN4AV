@@ -2,7 +2,7 @@
     <x-slot:title>Crear pelicula</x-slot:title>
     <h1 class="mb-3" >Crear pelicula</h1>
 
-    <form action="{{ route('movies.store') }}" method="POST">
+    <form action="{{ route('movies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf   {{--  TOKEN NECESARIO --}}
         <div class="mb-3">
             <label for="title" class="form-label">Titulo</label>
