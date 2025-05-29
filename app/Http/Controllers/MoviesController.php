@@ -7,35 +7,40 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MoviesController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // return view('movies');
         // $allMovies = Movie::all();
         $allMovies = Movie::with('rating', 'genres')->get();
         // dd($allMovies);
-        return view('movies.index', ['movies' => $allMovies] );
+        return view('movies.index', ['movies' => $allMovies]);
     }
 
-    public function view($id){
+    public function view($id)
+    {
         // $movie = Movie::find($id);
         return view('movies.view', [
             'movie' => Movie::findOrFail($id)
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('movies.create', [
             'genres' => Genre::orderBy('name')->get(),
             'ratings' => Rating::all()
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $input = $request->all();
 
-        if( $request->hasFile('cover') ){
+        if ($request->hasFile('cover')) {
             $input['cover'] = $request->file('cover')->store('covers', 'public');
         }
 
@@ -45,7 +50,7 @@ class MoviesController extends Controller
             'title' => 'required|max:255|min:3',
             'price' => 'required|numeric|min:0',
             'release_date' => 'required|date',
-        ],[
+        ], [
             'title.required' => "El campo titulo es obligatorio",
             'title.max' => "El campo titulo no puede tener mas de 255 caracteres",
             'title.min' => "El campo titulo no puede tener menos de 3 caracteres",
@@ -59,27 +64,35 @@ class MoviesController extends Controller
         $movie = Movie::create($input);
         $movie->genres()->attach($input['genre_id']);
 
-        return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>".e( $input["title"] )."</b> se publico correctamente");
+        return redirect()->route('movies.index')->with('feedback.message', "La pelicula <b>" . e($input["title"]) . "</b> se publico correctamente");
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $movie = Movie::findOrFail($id);
+
+        if( $movie->cover && Storage::has($movie->cover) ){
+            Storage::delete($movie->cover);
+        }
 
         $movie->genres()->detach();
         $movie->delete();
 
+
         return redirect()
-                ->route('movies.index')
-                ->with('feedback.message', "La pelicula <b>".e( $movie->title )."</b> se elimino correctamente");
+            ->route('movies.index')
+            ->with('feedback.message', "La pelicula <b>" . e($movie->title) . "</b> se elimino correctamente");
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         return view('movies.delete', [
             'movie' => Movie::findOrFail($id)
         ]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         return view('movies.edit', [
             'movie' => Movie::findOrFail($id),
             'ratings' => Rating::all(),
@@ -87,12 +100,16 @@ class MoviesController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
+
+        $input = $request->except(['_token', '_method']);
+
         $request->validate([
             'title' => 'required|max:255|min:3',
             'price' => 'required|numeric|min:0',
             'release_date' => 'required|date',
-        ],[
+        ], [
             'title.required' => "El campo titulo es obligatorio",
             'title.max' => "El campo titulo no puede tener mas de 255 caracteres",
             'title.min' => "El campo titulo no puede tener menos de 3 caracteres",
@@ -102,13 +119,25 @@ class MoviesController extends Controller
             'release_date.required' => "El campo fecha de lanzamiento es obligatorio",
             'release_date.date' => "El campo fecha de lanzamiento no es una fecha valida"
         ]);
+        // dd($input);
         $movie = Movie::findOrFail($id);
 
-        $movie->update($request->all());
-        $movie->genres()->sync( $request->input('genre_id') );
+        $oldCover = $movie->cover;
+
+        if ($request->hasFile('cover')) {
+            $input['cover'] = $request->file('cover')->store('covers', 'public');
+        }
+
+
+        $movie->update($input);
+        $movie->genres()->sync($request->input('genre_id'));
+
+        if( $request->hasFile('cover') && $oldCover && Storage::has($oldCover) ){
+            Storage::delete($oldCover);
+        }
 
         return redirect()
-                    ->route('movies.index')
-                    ->with('feedback.message', "La pelicula <b>".e( $movie->title )."</b> se edito correctamente");
+            ->route('movies.index')
+            ->with('feedback.message', "La pelicula <b>" . e($movie->title) . "</b> se edito correctamente");
     }
 }

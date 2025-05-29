@@ -7,7 +7,7 @@
     <x-slot:title>Editar pelicula</x-slot:title>
     <h1 class="mb-3" >Editar pelicula: {{ $movie->title }}</h1>
 
-    <form action="{{ route('movies.update', ['id' => $movie-> movie_id]) }}" method="POST">
+    <form action="{{ route('movies.update', ['id' => $movie-> movie_id]) }}" method="POST" enctype="multipart/form-data">
         @csrf   {{--  TOKEN NECESARIO --}}
         @method('PUT')
         <div class="mb-3">
@@ -79,6 +79,9 @@
                 @endforeach
             </select>
         </div>
+            @if ($movie->cover && \Illuminate\Support\Facades\Storage::has($movie->cover))
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($movie->cover) }}" alt="" class="img-fluid" style="max-width: 300px" >
+            @endif
         <div class="mb-3">
             <label for="cover" class="form-label">
                 Portada <span class="small" >(Opcional)</span>
