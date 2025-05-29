@@ -78,7 +78,8 @@ class MoviesController extends Controller
     public function edit($id){
         return view('movies.edit', [
             'movie' => Movie::findOrFail($id),
-            'ratings' => Rating::all()
+            'ratings' => Rating::all(),
+            'genres' => Genre::orderBy('name')->get()
         ]);
     }
 
@@ -100,6 +101,7 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($id);
 
         $movie->update($request->all());
+        $movie->genres()->sync( $request->input('genre_id') );
 
         return redirect()
                     ->route('movies.index')

@@ -1,7 +1,6 @@
 <?php
 
-    // dd($movie);
-    // dd($ratings);
+ $genereIds = $movie->genres->pluck('genre_id')->all();
 ?>
 
 <x-layout>
@@ -54,6 +53,20 @@
             <label for="synopsis" class="form-label">Sinopsis</label>
             <textarea class="form-control" id="synopsis" name="synopsis" rows="3">{{ old('synopsis', $movie->synopsis) }}</textarea>
         </div>
+        <fieldset class="mb-3" >
+            <legend>Generos</legend>
+            @foreach ($genres as $genre )
+                <label class="me-3">
+                    <input
+                        type="checkbox"
+                        name="genre_id[]"
+                        value="{{ $genre->genre_id }}"
+                        @checked( in_array( $genre->genre_id, old( 'genre_id', $genereIds ) ) )
+                        >
+                    {{ $genre->name }}
+                </label>
+            @endforeach
+        </fieldset>
         <div class="mb-3" >
             <label for="rating_fk" class="form-label">Clasificacion</label>
             <select class="form-select" id="rating_fk" name="rating_fk">
