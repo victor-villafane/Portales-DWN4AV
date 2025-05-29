@@ -11,6 +11,7 @@ Route::get('/quienes-somos', [\App\http\Controllers\AboutController::class, 'abo
 Route::get('/peliculas/listado', [\App\http\Controllers\MoviesController::class, 'index'])->name('movies.index');
 Route::get('/peliculas/{id}', [\App\http\Controllers\MoviesController::class, 'view'])
         ->name('movies.view')
+        ->middleware(\App\Http\Middleware\RequireAgeOver18::class) //php artisan make:middleware RequireAgeOver18
         ->whereNumber('id');
 Route::get('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'create'])->name('movies.create')
     ->middleware('auth');
