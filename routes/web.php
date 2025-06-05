@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgeVericationController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -11,7 +12,7 @@ Route::get('/quienes-somos', [\App\http\Controllers\AboutController::class, 'abo
 Route::get('/peliculas/listado', [\App\http\Controllers\MoviesController::class, 'index'])->name('movies.index');
 Route::get('/peliculas/{id}', [\App\http\Controllers\MoviesController::class, 'view'])
         ->name('movies.view')
-        ->middleware(\App\Http\Middleware\RequireAgeOver18::class) //php artisan make:middleware RequireAgeOver18
+        ->middleware('require-age') //php artisan make:middleware RequireAgeOver18
         ->whereNumber('id');
 Route::get('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'create'])->name('movies.create')
     ->middleware('auth');
@@ -37,6 +38,15 @@ Route::get('/iniciar-sesion', [\App\http\Controllers\AuthController::class, 'log
 Route::post('/iniciar-sesion', [\App\http\Controllers\AuthController::class, 'authenticate'])->name('auth.authenticate');
 
 Route::post('/cerrar-sesion', [\App\http\Controllers\AuthController::class, 'logout'])->name('auth.logout');
+
+Route::get('/peliculas/{id}/verificar-edad', [ \App\http\Controllers\AgeVericationController::class, 'show' ])
+    ->name(('movies.age-verification.show'))
+    ->whereNumber('id');
+
+Route::post('/peliculas/{id}/verificar-edad', [\App\http\Controllers\AgeVericationController::class, 'save'])
+    ->name('movies.age-verification.save')
+    ->whereNumber('id');
+
 // Route::get('/quienes-somos', function () {
 //     return view('about');
 // });

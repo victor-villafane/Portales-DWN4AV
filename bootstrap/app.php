@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             session()->flash('feedback.type', 'danger');
             return route('auth.login');
         } );
+        $middleware->alias([
+            'require-age' => \App\Http\Middleware\RequireAgeOver18::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

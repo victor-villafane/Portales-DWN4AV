@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Movie;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,14 @@ class RequireAgeOver18
      */
     public function handle(Request $request, Closure $next): Response
     {
-        echo "MIDDLEWARE: VERIFICANDO!!!!\n";
+        // echo "MIDDLEWARE: VERIFICANDO!!!!\n";
+        $id = $request->route('id');
+        $movie = Movie::findOrFail($id);
+
+        if( $movie->rating_fk === 4 && !$request->session()->has('age-verified') ){
+            return to_route('movies.age-verification.show', [ 'id' => $id ]);
+        }
+
         return $next($request);
     }
 }
