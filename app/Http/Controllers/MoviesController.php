@@ -11,13 +11,32 @@ use Illuminate\Support\Facades\Storage;
 
 class MoviesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // return view('movies');
         // $allMovies = Movie::all();
-        $allMovies = Movie::with('rating', 'genres')->get();
+        $moviesQuery = Movie::with('rating', 'genres');
+
+        $searchParams = [
+            's-title' => $request->query('s-title'),
+            's-rating' => $request->query('s-rating')
+        ];
+
+        if( $searchParams['s-title'] ){
+            $moviesQuery->where('title','like', '%'. $searchParams['s-title'] . '%');
+        }
+
+        if( $searchParams['s-rating'] ){
+            $moviesQuery->where('rating_fk', '=', $searchParams['s-rating']);
+        }
+
+        $allMovies = $moviesQuery->get();
         // dd($allMovies);
-        return view('movies.index', ['movies' => $allMovies]);
+        return view('movies.index', [
+                'movies' => $allMovies,
+                'searchParams' => $searchParams,
+                'ratings' => Rating::all(),
+            ]);
     }
 
     public function view(Movie $movie)
