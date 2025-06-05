@@ -37,9 +37,9 @@
                     </td>
                     <td>{{$movie->rating->name}}</td>
                     <td>
-                        <a href="{{ route('movies.view', ['id' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>
+                        <a href="{{ route('movies.view', ['movie' => $movie->movie_id]) }}" class="btn btn-primary" >Ver</a>
                         @auth
-                            <a href="{{ route('movies.edit', ['id' => $movie->movie_id]) }}" class="btn btn-secondary" >Editar</a>
+                            <a href="{{ route('movies.edit', ['movie' => $movie->movie_id]) }}" class="btn btn-secondary" >Editar</a>
                             <a href="{{ route('movies.delete', ['id' => $movie->movie_id]) }}" class="btn btn-danger" >Eliminar</a>
                         @endauth
                     </td>

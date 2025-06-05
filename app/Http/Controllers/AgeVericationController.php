@@ -15,6 +15,6 @@ class AgeVericationController extends Controller
 
     public function save( Request $request, int $id ){
         $request->session()->put('age-verified', true);
-        return to_route('movies.view', ['id' => $id]);
+        return to_route('movies.view', ['movie' => $id]);
     }
 }

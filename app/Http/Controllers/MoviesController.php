@@ -20,11 +20,11 @@ class MoviesController extends Controller
         return view('movies.index', ['movies' => $allMovies]);
     }
 
-    public function view($id)
+    public function view(Movie $movie)
     {
         // $movie = Movie::find($id);
         return view('movies.view', [
-            'movie' => Movie::findOrFail($id)
+            'movie' => $movie
         ]);
     }
 
@@ -91,10 +91,10 @@ class MoviesController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit(Movie $movie)
     {
         return view('movies.edit', [
-            'movie' => Movie::findOrFail($id),
+            'movie' => $movie,
             'ratings' => Rating::all(),
             'genres' => Genre::orderBy('name')->get()
         ]);

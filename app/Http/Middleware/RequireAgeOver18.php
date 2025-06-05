@@ -17,11 +17,11 @@ class RequireAgeOver18
     public function handle(Request $request, Closure $next): Response
     {
         // echo "MIDDLEWARE: VERIFICANDO!!!!\n";
-        $id = $request->route('id');
-        $movie = Movie::findOrFail($id);
+        // $id = $request->route('id');
+        $movie = $request->route('movie');
 
         if( $movie->rating_fk === 4 && !$request->session()->has('age-verified') ){
-            return to_route('movies.age-verification.show', [ 'id' => $id ]);
+            return to_route('movies.age-verification.show', [ 'id' => $movie->movie_id ]);
         }
 
         return $next($request);
