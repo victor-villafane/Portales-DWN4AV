@@ -88,6 +88,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $movies->links() }}
     @else
         <p class="m-3">No se encontraron peliculas</p>
     @endif
