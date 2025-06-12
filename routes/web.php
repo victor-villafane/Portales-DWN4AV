@@ -48,6 +48,9 @@ Route::post('/peliculas/{id}/verificar-edad', [\App\http\Controllers\AgeVericati
     ->name('movies.age-verification.save')
     ->whereNumber('id');
 
+Route::post('peliculas/{id}/reservar', [\App\Http\Controllers\MoviesReservationController::class, 'reserve'])
+    ->name('movies.reserve')
+    ->middleware('auth');
 // Route::get('/quienes-somos', function () {
 //     return view('about');
 // });

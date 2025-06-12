@@ -82,6 +82,10 @@
                                     class="btn btn-secondary">Editar</a>
                                 <a href="{{ route('movies.delete', ['id' => $movie->movie_id]) }}"
                                     class="btn btn-danger">Eliminar</a>
+                                    <form action="{{ route('movies.reserve', ['id' => $movie->movie_id]) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning">Reservar</button>
+                                    </form>
                             @endauth
                         </td>
                     </tr>
