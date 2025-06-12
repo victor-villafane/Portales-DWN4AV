@@ -30,7 +30,7 @@ class MoviesController extends Controller
             $moviesQuery->where('rating_fk', '=', $searchParams['s-rating']);
         }
 
-        $allMovies = $moviesQuery->paginate(2);
+        $allMovies = $moviesQuery->paginate(2)->withQueryString();
         // dd($allMovies);
         return view('movies.index', [
                 'movies' => $allMovies,
