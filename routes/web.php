@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgeVericationController;
+use App\Http\Controllers\MercadoPagoController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -50,7 +51,7 @@ Route::post('/peliculas/{id}/verificar-edad', [\App\http\Controllers\AgeVericati
 Route::post('peliculas/{id}/reservar', [\App\Http\Controllers\MoviesReservationController::class, 'reserve'])
     ->name('movies.reserve')
     ->middleware('auth');
-// Route::get('/quienes-somos', function () {
-//     return view('about');
-// });
+
+Route::get('mp/comprar', [ \App\Http\Controllers\MercadoPagoController::class, 'showBuyForm' ])
+    ->name('mp.show-buy-form');
 
