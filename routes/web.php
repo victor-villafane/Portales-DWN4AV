@@ -10,15 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\http\Controllers\HomeController::class, 'home'])->name('home');
 Route::get('/quienes-somos', [\App\http\Controllers\AboutController::class, 'about'])->name('about');
 Route::get('/peliculas/listado', [\App\http\Controllers\MoviesController::class, 'index'])->name('movies.index');
-Route::get('/peliculas/{movie}', [\App\http\Controllers\MoviesController::class, 'view'])
-        ->name('movies.view')
-        ->middleware('require-age'); //php artisan make:middleware RequireAgeOver18
-        // ->whereNumber('id');
 Route::get('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'create'])->name('movies.create')
     ->middleware('auth');
 Route::post('/peliculas/publicar', [\App\http\Controllers\MoviesController::class, 'store'])->name('movies.store')
     ->middleware('auth');
-
+Route::get('/peliculas/{movie}', [\App\http\Controllers\MoviesController::class, 'view'])
+        ->name('movies.view')
+        ->middleware('require-age'); //php artisan make:middleware RequireAgeOver18
+        // ->whereNumber('id');
 Route::get('/peliculas/{id}/eliminar', [\App\http\Controllers\MoviesController::class, 'delete'])->name('movies.delete')
         ->whereNumber('id')
         ->middleware('auth');
