@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgeVericationController;
 use App\Http\Controllers\MercadoPagoController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -63,3 +64,6 @@ Route::get('mp/pendiente', [\App\Http\Controllers\MercadoPagoController::class, 
 
 Route::get('mp/error', [\App\Http\Controllers\MercadoPagoController::class, 'failure'])
     ->name('mp.failure');
+Route::post("mp/confirmacion-pago", [ \App\Http\Controllers\MercadoPagoController::class, 'paymentConfirmation' ])
+    ->name("mp.payment-confirmation")
+    ->withoutMiddleware([VerifyCsrfToken::class]);
